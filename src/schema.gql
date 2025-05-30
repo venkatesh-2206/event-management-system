@@ -1,0 +1,51 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Event {
+  id: ID!
+  title: String!
+  description: String
+  date: DateTime!
+  createdBy: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: ID!
+  username: String!
+}
+
+type AuthResponse {
+  access_token: String!
+}
+
+type Query {
+  events: [Event!]!
+  event(id: ID!): Event!
+  search(title: String, dateFrom: String): [Event!]!
+}
+
+type Mutation {
+  createEvent(input: CreateEventInput!): Event!
+  updateEvent(input: UpdateEventInput!): Event!
+  login(username: String!, password: String!): AuthResponse!
+  signup(username: String!, password: String!): User!
+}
+
+input CreateEventInput {
+  title: String!
+  description: String
+  date: String!
+}
+
+input UpdateEventInput {
+  title: String
+  description: String
+  date: String
+  id: ID!
+}
