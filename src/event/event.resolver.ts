@@ -46,7 +46,7 @@ export class EventResolver {
   @UseGuards(GqlAuthGuard)
   async search(
     @Args('title', { nullable: true }) title?: string,
-    @Args('dateFrom', { nullable: true }) date?: string,
+    @Args('date', { nullable: true }) date?: string,
   ): Promise<Event[]> {
     return this.eventService.search(title, date);
   }

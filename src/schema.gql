@@ -27,7 +27,7 @@ type AuthResponse {
 type Query {
   events: [Event!]!
   event(id: ID!): Event!
-  search(title: String, dateFrom: String): [Event!]!
+  search(title: String, date: String): [Event!]!
 }
 
 type Mutation {
