@@ -34,7 +34,7 @@ type Mutation {
   createEvent(input: CreateEventInput!): Event!
   updateEvent(input: UpdateEventInput!): Event!
   login(username: String!, password: String!): AuthResponse!
-  signup(username: String!, password: String!): User!
+  signup(input: CreateUserInput!): User!
 }
 
 input CreateEventInput {
@@ -48,4 +48,9 @@ input UpdateEventInput {
   description: String
   date: String
   id: ID!
+}
+
+input CreateUserInput {
+  username: String!
+  password: String!
 }
