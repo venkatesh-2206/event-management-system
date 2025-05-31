@@ -23,12 +23,12 @@ export class EventResolver {
   }
 
   @Mutation(() => Event)
-  @UseGuards(GqlAuthGuard) // JWT auth guard
+  @UseGuards(GqlAuthGuard)
   async createEvent(
     @Args('input') input: CreateEventInput,
     @Context() context: any
   ): Promise<Event> {
-    const userId = context.req.user.userId; // assuming JWT payload contains userId
+    const userId = context.req.user.userId;
     return this.eventService.createEvent(input, userId);
   }
 

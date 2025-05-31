@@ -41,18 +41,15 @@ export class EventService {
   async updateEvent(input: UpdateEventInput, userId: string): Promise<Event> {
     const { id, title, description, date } = input;
 
-    // Find the event by ID
     const event = await this.eventRepository.findOne({ where: { id } });
     if (!event) {
       throw new NotFoundException('Event not found');
     }
 
-    // Verify the user owns the event
     if (event.createdBy !== userId) {
       throw new UnauthorizedException('You are not allowed to update this event');
     }
 
-    // Validate date if provided (must be future date)
     if (date) {
       const eventDate = new Date(date);
       if (isNaN(eventDate.getTime()) || eventDate <= new Date()) {
@@ -60,16 +57,12 @@ export class EventService {
       }
       event.date = eventDate;
     }
-
-    // Update fields if provided
     if (title) {
       event.title = title;
     }
     if (description) {
       event.description = description;
     }
-
-    // Save updated event
     await this.eventRepository.save(event);
 
     return event;
@@ -86,6 +79,5 @@ export class EventService {
     }
     return query.getMany();
   }
-
 
 }

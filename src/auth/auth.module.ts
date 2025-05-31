@@ -10,7 +10,7 @@ import { AuthResolver } from './auth.resolver';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: 'event1',
+      secret: 'event1',// Hard Coded Secret key
       signOptions: { expiresIn: '1d' },
     }),
     UserModule
