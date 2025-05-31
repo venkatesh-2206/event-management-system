@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException, UnauthorizedException, NotFoundException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { ILike, MoreThanOrEqual, Repository } from 'typeorm';
 import { Event } from './event.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateEventInput } from './dto/create-event.input';
@@ -69,15 +69,16 @@ export class EventService {
   }
 
   async search(title?: string, date?: string): Promise<Event[]> {
-    const query = this.eventRepository.createQueryBuilder('event');
+    const where: any = {};
 
     if (title) {
-      query.andWhere('event.title ILIKE :title', { title: `%${title}%` });
+      where.title = ILike(`%${title}%`);
     }
     if (date) {
-      query.andWhere('event.date >= :date', { date });
+      where.date = MoreThanOrEqual(date);
     }
-    return query.getMany();
+
+    return this.eventRepository.find({ where })
   }
 
 }
